@@ -6,11 +6,11 @@ function setupChromcast() {
     );
     customMessageBus.onMessage = function(event) {
         console.log(event);
-        //send something back
-        // customMessageBus.send(event.senderId,{
-        //     requestId: event.data.requestId,
-        //     data: 'foo'
-        // });
+        // send something back
+        customMessageBus.send(event.senderId,{
+            requestId: event.data.requestId,
+            data: 'foo'
+        });
     };
     castReceiverManager.start();
 }
