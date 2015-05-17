@@ -9,7 +9,19 @@
     <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
     <script src="js/senderApplication.js"></script>
     <form action="">
+        <p>
+            <label for="url">url</label>
+            <input id="url" type="text">
+            <button type="button" onclick="updateUrl()">Update</button>
+        </p>
+        <p>
+            <button type="button" onclick="zoomIn()">Zoom in</button>
+            <button type="button" onclick="zoomOut()">Zoom out</button>
+            <button type="button" onclick="rotateCCW()">CCW</button>
+            <button type="button" onclick="rotateCW()">CW</button>
+        </p>
         <button type="button" onclick="cast()">Cast</button>
+        <button type="button" onclick="stop()">Stop casting</button>
     </form>
 </body>
 </html>

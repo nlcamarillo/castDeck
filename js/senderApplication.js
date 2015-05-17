@@ -1,12 +1,20 @@
+var session;
+var zoom = 1;
+var rotation = 0;
+var url;
+
 function cast() {
     console.log('cast');
-    chrome.cast.requestSession(function(session) {
+    chrome.cast.requestSession(function(_session) {
         console.log('has session',arguments);
+
+        session = _session;
+
         session.sendMessage(
             'urn:x-cast:org.firstlegoleague.castDeck',
             'hello world',
             function() {
-                console.log('msg sent')
+                console.log('msg sent');
             },
             function() {
                 console.log('msg err');
@@ -17,23 +25,73 @@ function cast() {
             function() {
                 console.log('got msg',arguments);
             }
-        )
+        );
     }, function() {
         console.log('has error',arguments);
     });
 }
 
+function sendMessage(obj) {
+    var str = JSON.stringify(obj);
+    session.sendMessage(
+        'urn:x-cast:org.firstlegoleague.castDeck',
+        str,
+        function() {
+            console.log('update sent');
+        },
+        function() {
+            console.log('update err');
+        }
+    );
+}
+
+function sendUpdate() {
+    sendMessage({
+        url: url,
+        rotation: rotation,
+        zoom: zoom,
+        aspect: 'native',
+        os: [0,0,0,0]
+    });
+}
+
 function stop() {
     console.log('stop');
+    session.stop();
+}
+
+function zoomIn() {
+    zoom += 0.1;
+    sendUpdate();
+}
+
+function zoomOut() {
+    zoom -= 0.1;
+    sendUpdate();
+}
+
+function rotateCCW() {
+    rotation = (rotation+270) % 360;
+    sendUpdate();
+}
+
+function rotateCW() {
+    rotation = (rotation+90) % 360;
+    sendUpdate();
+}
+
+function updateUrl() {
+    url = document.getElementById('url').value;
+    sendUpdate();
 }
 
 function initCast() {
     console.log('cast api');
     var sessionRequest = new chrome.cast.SessionRequest('4EC978AD');
     var apiConfig = new chrome.cast.ApiConfig(sessionRequest,
-        function() {
-            console.log('session',arguments);
-
+        function(_session) {
+            console.log('existing session',arguments);
+            session = _session;
         },
         function() {
             console.log('receiverListener',arguments);
