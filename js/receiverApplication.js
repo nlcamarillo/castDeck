@@ -101,14 +101,6 @@ var Shim = (function() {
 
 var shim = new Shim();
 
-function log(msg) {
-    flash(msg);
-    console.log(msg);
-    var p = document.createElement('p');
-    p.innerHTML = msg;
-    document.getElementById('log').appendChild(p);
-}
-
 function setupChromcast() {
     var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
     var customMessageBus = castReceiverManager.getCastMessageBus(
@@ -117,8 +109,6 @@ function setupChromcast() {
     );
     customMessageBus.onMessage = function(event) {
         var str = JSON.stringify(event.data);
-        // log(event.data);
-        log(str);
         shim.update(event.data);
         // send something back
         customMessageBus.send(event.senderId,{
@@ -127,9 +117,6 @@ function setupChromcast() {
         });
     };
     castReceiverManager.start();
-    log('started');
 }
 
-
-log('start');
 setupChromcast();
