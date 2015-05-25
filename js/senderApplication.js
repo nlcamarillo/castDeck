@@ -2,6 +2,7 @@ var session;
 var zoom = 1;
 var rotation = 0;
 var url;
+var overscan = [0,0,0,0];
 
 function cast() {
     console.log('cast');
@@ -51,7 +52,7 @@ function sendUpdate() {
         rotation: rotation,
         zoom: zoom,
         aspect: 'native',
-        os: [0,0,0,0]
+        overscan: overscan
     });
 }
 
@@ -70,6 +71,11 @@ function zoomOut() {
     sendUpdate();
 }
 
+function zoomReset() {
+    zoom = 1;
+    sendUpdate();
+}
+
 function rotateCCW() {
     rotation = (rotation+270) % 360;
     sendUpdate();
@@ -82,6 +88,23 @@ function rotateCW() {
 
 function updateUrl() {
     url = document.getElementById('url').value;
+    sendUpdate();
+}
+
+function adjustTop(value) {
+    overscan[0] = value;
+    sendUpdate();
+}
+function adjustRight(value) {
+    overscan[1] = value;
+    sendUpdate();
+}
+function adjustBottom(value) {
+    overscan[2] = value;
+    sendUpdate();
+}
+function adjustLeft(value) {
+    overscan[3] = value;
     sendUpdate();
 }
 

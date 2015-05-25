@@ -15,10 +15,19 @@
             <button type="button" onclick="updateUrl()">Update</button>
         </p>
         <p>
+            Zoom and rotation:
             <button type="button" onclick="zoomIn()">Zoom in</button>
             <button type="button" onclick="zoomOut()">Zoom out</button>
+            <button type="button" onclick="zoomReset()">Zoom reset</button>
             <button type="button" onclick="rotateCCW()">CCW</button>
             <button type="button" onclick="rotateCW()">CW</button>
+        </p>
+        <p>
+            Overscan:
+            <label for="">Top: </label><input type="number" value="0" onchange="adjustTop(this.value)">
+            <label for="">Right: </label><input type="number" value="0" onchange="adjustRight(this.value)">
+            <label for="">Bottom: </label><input type="number" value="0" onchange="adjustBottom(this.value)">
+            <label for="">Left: </label><input type="number" value="0" onchange="adjustLeft(this.value)">
         </p>
         <button type="button" onclick="cast()">Cast</button>
         <button type="button" onclick="stop()">Stop casting</button>

@@ -20,7 +20,7 @@ var Shim = (function() {
             scale: 1,
             aspect: 'native',
             rotation: 0,
-            os: [0,0,0,0],
+            overscan: [0,0,0,0],
             displayId: window.location.href.split('/').pop()
         };
         this.displayId = window.location.href.split('/').pop();
@@ -46,8 +46,8 @@ var Shim = (function() {
         return this.data.zoom||1;
     };
     Shim.prototype.getViewport = function() {
-        var w = document.body.clientWidth-this.data.os[1]-this.data.os[3];
-        var h = document.body.clientHeight-this.data.os[0]-this.data.os[2];
+        var w = document.body.clientWidth-this.data.overscan[1]-this.data.overscan[3];
+        var h = document.body.clientHeight-this.data.overscan[0]-this.data.overscan[2];
         return {
             w: w,
             h: h,
@@ -62,10 +62,10 @@ var Shim = (function() {
         }
     };
     Shim.prototype.reflow = function() {
-        var os = this.data.os;
+        var os = this.data.overscan;
         //pixel size of the display
-        var cw = document.body.clientWidth-this.data.os[1]-this.data.os[3];
-        var ch = document.body.clientHeight-this.data.os[0]-this.data.os[2];
+        var cw = document.body.clientWidth-os[1]-os[3];
+        var ch = document.body.clientHeight-os[0]-os[2];
         var vp = this.getViewport();
         var scale = this.getScale();
         this.scaleX = vp.a*scale/this.getAspect();
@@ -123,7 +123,7 @@ function setupChromcast() {
         // send something back
         customMessageBus.send(event.senderId,{
             requestId: event.data.requestId,
-            data: 'foo'
+            data: 'ack'
         });
     };
     castReceiverManager.start();
