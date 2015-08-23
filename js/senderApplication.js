@@ -4,7 +4,7 @@ var rotation = 0;
 var url;
 var overscan = [0,0,0,0];
 
-function cast() {
+function cast(cb) {
     console.log('cast');
     chrome.cast.requestSession(function(_session) {
         console.log('has session',arguments);
@@ -27,6 +27,9 @@ function cast() {
                 console.log('got msg',arguments);
             }
         );
+        if (cb) {
+            cb();
+        }
     }, function() {
         console.log('has error',arguments);
     });
