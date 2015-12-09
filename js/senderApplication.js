@@ -64,19 +64,22 @@ function stop() {
     session.stop();
 }
 
-function zoomIn() {
-    zoom += 0.1;
+function setZoom(z) {
+    zoom = z;
+    document.getElementById('zoomLevel').innerHTML = zoom.toFixed(1);
     sendUpdate();
+}
+
+function zoomIn() {
+    setZoom(zoom + 0.1);
 }
 
 function zoomOut() {
-    zoom -= 0.1;
-    sendUpdate();
+    setZoom(zoom - 0.1);
 }
 
 function zoomReset() {
-    zoom = 1;
-    sendUpdate();
+    setZoom(1);
 }
 
 function rotateCCW() {
