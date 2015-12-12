@@ -79,8 +79,9 @@ var Shim = (function() {
 
         var style = '';
         var rotate = 'rotate('+(this.data.rotation||0)+'deg)';
-        var scale = 'scale3D('+this.scaleX+','+this.scaleY+',1)';
-        var transform = scale+' '+rotate+';';
+        var scaleX = 'scaleX('+this.scaleX+')';
+        var scaleY = 'scaleY('+this.scaleY+')';
+        var transform = scaleX+' '+scaleY+' '+rotate+';';
         style += '-webkit-transform: '+transform;
         style += '-moz-transform: '+transform;
         style += 'transform: '+transform;
