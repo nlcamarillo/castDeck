@@ -3,6 +3,7 @@ var zoom = 1;
 var rotation = 0;
 var url;
 var overscan = [0,0,0,0];
+var aspect = 'native';
 
 function cast(cb) {
     console.log('cast');
@@ -54,7 +55,7 @@ function sendUpdate() {
         url: url,
         rotation: rotation,
         zoom: zoom,
-        aspect: 'native',
+        aspect: aspect,
         overscan: overscan
     });
 }
@@ -111,6 +112,11 @@ function adjustBottom(value) {
 }
 function adjustLeft(value) {
     overscan[3] = value;
+    sendUpdate();
+}
+
+function updateAspect(value) {
+    aspect = value;
     sendUpdate();
 }
 

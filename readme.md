@@ -5,6 +5,7 @@ Generic `iframe` based slide show chromecast application. Features:
 
 - Multiple urls to create a slide show
 - Scale factor adjustment
+- Aspect ratio adjustment
 - Overscan adjustment
 - Rotation adjustment
 - Transition settings
