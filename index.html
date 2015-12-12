@@ -50,6 +50,13 @@
                     Right
                 </button>
             </p>
+            <p>
+                <label>Aspect:</label>
+                <button type="button" onclick="updateAspect('native')">Native</button>
+                <button type="button" onclick="updateAspect(16/9)">16:9</button>
+                <button type="button" onclick="updateAspect(16/10)">16:10</button>
+                <button type="button" onclick="updateAspect(4/3)">4:3</button>
+            </p>
         </fieldset>
         <fieldset>
             <legend>Overscan:</legend>
@@ -64,15 +71,6 @@
             </p>
             <p>
                 <label for="">Left: </label><input type="number" value="0" onchange="adjustLeft(this.value)">
-            </p>
-        </fieldset>
-        <fieldset>
-            <legend>Aspect:</legend>
-            <p>
-                <button type="button" onclick="updateAspect('native')">Native</button>
-                <button type="button" onclick="updateAspect(16/9)">16:9</button>
-                <button type="button" onclick="updateAspect(16/10)">16:10</button>
-                <button type="button" onclick="updateAspect(4/3)">4:3</button>
             </p>
         </fieldset>
         <p>
