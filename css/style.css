@@ -1,6 +1,6 @@
 html,body {
     background-color: #222;
-    font-family: verdana;
+    font-family: verdana, sans-serif;
     font-size: 16px;
     color: #ddd;
 }
