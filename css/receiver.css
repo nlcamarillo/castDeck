@@ -23,6 +23,32 @@ body {
     text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
     font-family: candara, "gill sans", sans-serif;
 }
+#loader {
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 60vh;
+}
+#loader:before{
+    display: block;
+    position: absolute;
+    content: "";
+    left: -200px;
+    width: 200px;
+    height: 4px;
+    background-color: #2980b9;
+    animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    from {left: -200px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% { left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
 iframe {
     position: absolute;
     top: 50%;
