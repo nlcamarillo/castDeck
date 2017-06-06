@@ -12,22 +12,15 @@ function cast(cb) {
 
         session = _session;
 
-        session.sendMessage(
-            'urn:x-cast:org.firstlegoleague.castDeck',
-            'hello world',
-            function() {
-                console.log('msg sent');
-            },
-            function() {
-                console.log('msg err');
-            }
-        );
         session.addMessageListener(
             'urn:x-cast:org.firstlegoleague.castDeck',
             function() {
                 console.log('got msg',arguments);
             }
         );
+
+        url = document.getElementById('url').value;
+        sendUpdate();
         if (cb) {
             cb();
         }
@@ -93,8 +86,8 @@ function rotateCW() {
     sendUpdate();
 }
 
-function updateUrl() {
-    url = document.getElementById('url').value;
+function updateUrl(value) {
+    url = value;
     sendUpdate();
 }
 
