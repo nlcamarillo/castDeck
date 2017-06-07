@@ -40,7 +40,12 @@ var Shim = (function() {
         this.reflow();
     };
     Shim.prototype.seturl = function(url) {
-        this.frame.src = url;
+        var frame = this.frame;
+        frame.src = 'about:blank';
+        frame.onload = function(){
+          frame.src = url;
+          frame.onload = null;
+        }
     };
     Shim.prototype.getScale = function() {
         return this.data.zoom||1;
