@@ -9,6 +9,10 @@
 <body>
     <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
     <script src="js/senderApplication.js"></script>
+    <script>
+        castDeck.options.log = true;
+        const onZoom = (state) => document.getElementById('zoomLevel').innerHTML = state.zoom.toFixed(1);
+    </script>
     <h1>castDeck</h1>
     <form action="">
         <p>
@@ -17,65 +21,65 @@
         <p>
             You can enter any url in the box below and press "Cast". For narrowcasting purposes, you can adjust various aspects of the displayed image, like zoom, rotation and overscan.
         </p>
-        <fieldset>
-            <p>
-                <label for="url">url</label>
-                <input id="url" type="text">
-                <button type="button" onclick="updateUrl(this.previousElementSibling.value)">Update</button>
-            </p>
-            <p>
-                <label>Zoom:</label>
-                <button type="button" onclick="zoomIn()">
-                    <i class="mdi mdi-magnify-plus"></i>
-                    Zoom in
-                </button>
-                <button type="button" onclick="zoomOut()">
-                    <i class="mdi mdi-magnify-minus"></i>
-                    Zoom out
-                </button>
-                <button type="button" onclick="zoomReset()">
-                    <i class="mdi mdi-magnify"></i>
-                    Zoom reset
-                </button>
-                <span id="zoomLevel">1.0</span>
-            </p>
-            <p>
-                <label>Rotate:</label>
-                <button type="button" onclick="rotateCCW()">
-                    <i class="mdi mdi-undo"></i>
-                    Left
-                </button>
-                <button type="button" onclick="rotateCW()">
-                    <i class="mdi mdi-redo"></i>
-                    Right
-                </button>
-            </p>
-            <p>
-                <label>Aspect:</label>
-                <button type="button" onclick="updateAspect('native')">Native</button>
-                <button type="button" onclick="updateAspect(16/9)">16:9</button>
-                <button type="button" onclick="updateAspect(16/10)">16:10</button>
-                <button type="button" onclick="updateAspect(4/3)">4:3</button>
-            </p>
-        </fieldset>
-        <fieldset>
-            <legend>Overscan:</legend>
-            <p>
-                <label for="">Top: </label><input type="number" value="0" onchange="adjustTop(this.value)">
-            </p>
-            <p>
-                <label for="">Right: </label><input type="number" value="0" onchange="adjustRight(this.value)">
-            </p>
-            <p>
-                <label for="">Bottom: </label><input type="number" value="0" onchange="adjustBottom(this.value)">
-            </p>
-            <p>
-                <label for="">Left: </label><input type="number" value="0" onchange="adjustLeft(this.value)">
-            </p>
-        </fieldset>
+        <div class="controls">
+            <fieldset>
+                <legend>&nbsp;</legend>
+                <p>
+                    <label for="url">url</label>
+                    <input id="url" type="text">
+                    <button type="button" onclick="castDeck.updateUrl(this.previousElementSibling.value)">Update</button>
+                </p>
+                <p>
+                    <label>Zoom:</label>
+                    <button type="button" onclick="castDeck.zoomIn().then(onZoom)">
+                        <i class="mdi mdi-magnify-plus"></i>
+                        Zoom in
+                    </button>
+                    <button type="button" onclick="castDeck.zoomOut().then(onZoom)">
+                        <i class="mdi mdi-magnify-minus"></i>
+                        Zoom out
+                    </button>
+                    <button type="button" onclick="castDeck.zoomReset().then(onZoom)">
+                        <i class="mdi mdi-magnify"></i>
+                        Zoom reset
+                    </button>
+                    <span id="zoomLevel">1.0</span>
+                </p>
+                <p>
+                    <label>Rotate:</label>
+                    <button type="button" onclick="castDeck.rotateCCW()">
+                        <i class="mdi mdi-undo"></i>
+                        Left
+                    </button>
+                    <button type="button" onclick="castDeck.rotateCW()">
+                        <i class="mdi mdi-redo"></i>
+                        Right
+                    </button>
+                </p>
+                <p>
+                    <label>Aspect:</label>
+                    <button type="button" onclick="castDeck.updateAspect('native')">Native</button>
+                    <button type="button" onclick="castDeck.updateAspect(16/9)">16:9</button>
+                    <button type="button" onclick="castDeck.updateAspect(16/10)">16:10</button>
+                    <button type="button" onclick="castDeck.updateAspect(4/3)">4:3</button>
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>Overscan:</legend>
+                <p class="overscan">
+                    <input id="top" type="number" value="0" onchange="castDeck.adjustTop(this.value)">
+                    <input id="right" type="number" value="0" onchange="castDeck.adjustRight(this.value)">
+                    <input id="bottom" type="number" value="0" onchange="castDeck.adjustBottom(this.value)">
+                    <input id="left" type="number" value="0" onchange="castDeck.adjustLeft(this.value)">
+                </p>
+            </fieldset>
+        </div>
         <p>
-            <button type="button" onclick="cast()">Cast</button>
-            <button type="button" onclick="stop()">Stop casting</button>
+            <button type="button" onclick="castDeck.cast(document.getElementById('url').value)">
+                <i class="mdi mdi-cast"></i>
+                Cast
+            </button>
+            <button type="button" onclick="castDeck.stop()">Stop</button>
         </p>
     </form>
 </body>
