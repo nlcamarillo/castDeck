@@ -3,12 +3,10 @@ castDeck
 
 Generic `iframe` based slide show chromecast application. Features:
 
-- Multiple urls to create a slide show
 - Scale factor adjustment
 - Aspect ratio adjustment
 - Overscan adjustment
 - Rotation adjustment
-- Transition settings
 
 Usage
 -----
@@ -29,9 +27,45 @@ The management application is just one example. You could use the receiver appli
 Api
 -----
 
-See `senderApplication.js` for an example.
+To create your own application around castDeck:
 
-TODO: create an embeddable js library out of this
+- include the google cast api: `www.gstatic.com/cv/js/sender/v1/cast_sender.js`
+- include the `senderApplication.js`
+
+CastDeck is available as a global `castDeck` singleton
+
+##options
+
+set `castDeck.options.log = true;` after including `senderApplication.js` to enable logging for debugging
+
+##methods
+
+### castDeck.cast(url?)
+
+start casting with the given url
+
+### castDeck.stop()
+
+stop casting
+
+### castDeck.setZoom(value), castDeck.zoomIn(), castDeck.zoomOut(), castDeck.zoomReset()
+
+adjust zoom
+
+### castDeck.rotateCCW(), castDeck.rotateCW()
+
+rotate counter clockwise (CCW) or clockwise (CW)
+
+### castDeck.adjustTop(px), castDeck.adjustRight(px), castDeck.adjustBottom(px), castDeck.adjustLeft(px)
+
+adjust overscan parameters. Some monitors (tvs specifically) cut away some of the sides of the viewport. You can adjust the overscan parameters to mitigate that.
+
+### castDeck.updateAspect(value | 'native')
+
+pass in the string `native` or a numeric value to adjust the aspect ratio. Some monitors distort the HD aspect ratio (which is 16:9) to fit the ratio of the device. Pass in the actual aspect ratio of the device to fix this distortion.
+
+Notes
+---
 
 - The castDeck api id is `4EC978AD`
 - When started, the following json message can be sent to the `urn:x-cast:org.firstlegoleague.castDeck` namespace
