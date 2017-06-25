@@ -19,6 +19,7 @@ var Shim = (function() {
         this.frames = [];
         this.currentFrame = 0;
         this.data = {
+            url: [],
             scale: 1,
             aspect: 'native',
             rotation: 0,
@@ -37,9 +38,9 @@ var Shim = (function() {
         this.transition();
     };
     Shim.prototype.update = function(data) {
-        if (data.url && data.url !== this.data.url) {
-            this.setUrls(data.url);
-        }
+        //make url always an array
+        data.url = [].concat(data.url);
+        this.setUrls(data.url);
         this.data = data;
         this.reflow();
     };
@@ -79,7 +80,11 @@ var Shim = (function() {
     Shim.prototype.setUrls = function(urls) {
         urls = [].concat(urls);
         this.ensureFrames(urls.length);
-        urls.forEach((url, index) => this.setFrameUrl(this.frames[index], url));
+        urls.forEach((url, index) => {
+            if (url !== this.data.url[index]) {
+                this.setFrameUrl(this.frames[index], url)
+            }
+        });
     }
     Shim.prototype.setFrameUrl = function(frame, url) {
         frame.src = 'about:blank';
