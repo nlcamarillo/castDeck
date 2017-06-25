@@ -26,7 +26,7 @@ var Shim = (function() {
             overscan: [0,0,0,0],
             displayId: window.location.href.split('/').pop(),
             transition: 'fade',
-            duration: 5,
+            duration: 10,
         };
         this.displayId = window.location.href.split('/').pop();
         this.addFrame();
@@ -88,12 +88,18 @@ var Shim = (function() {
         });
     }
     Shim.prototype.setFrameUrl = function(frame, url) {
+        this.setLoading(true);
         frame.src = 'about:blank';
-        frame.onload = function(){
-          frame.src = url;
-          frame.onload = null;
+        frame.onload = () => {
+            frame.src = url;
+            frame.onload = () => {
+                this.setLoading(false);
+            };
         }
     };
+    Shim.prototype.setLoading = function(loading) {
+        document.getElementById('backdrop').classList.toggle('hidden', !loading);
+    }
     Shim.prototype.getScale = function() {
         return this.data.zoom||1;
     };

@@ -16,7 +16,7 @@
             overscan: [0,0,0,0],
             aspect: 'native',
             transition: 'fade',
-            duration: 5
+            duration: 10
         };
 
         const log = function() {
