@@ -48,6 +48,7 @@ var Shim = (function() {
         let frame = document.createElement('iframe');
         document.body.appendChild(frame);
         this.frames.push(frame);
+        this.reflowFrame(frame);
     }
     Shim.prototype.removeFrame = function() {
         let frame = this.frames.pop();
