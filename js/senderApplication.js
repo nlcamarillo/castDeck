@@ -119,10 +119,12 @@
     var urlList = [''];
     root.helpers = {
         addUrl() {
+            urlList = this.getUrls();
             urlList.push('');
             this.renderUrls();
         },
         removeUrl(index) {
+            urlList = this.getUrls();
             urlList.splice(index, 1);
             this.renderUrls();
         },
@@ -136,14 +138,17 @@
             div.innerHTML = urlList.map((url, index) => {
                 let last = index === urlList.length - 1
                 let rem = `
-                    <button type="button" onclick="helpers.removeUrl(${index})">Remove</button>
+                    <button type="button" onclick="helpers.removeUrl(${index})">
+                        <i class="mdi mdi-delete"></i>
+                        Remove
+                    </button>
                 `;
                 let add = `
-                    <button type="button" onclick="castDeck.updateUrl(helpers.getUrls())">Update</button>
                     <button type="button" onclick="helpers.addUrl()">
                         <i class="mdi mdi-plus"></i>
                         Add url
                     </button>
+                    <button type="button" onclick="castDeck.updateUrl(helpers.getUrls())">Update</button>
                 `;
                 return `
                     <p>
