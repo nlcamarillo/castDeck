@@ -17,12 +17,15 @@ var Shim = (function() {
     }
     Shim.prototype.initialize = function() {
         this.frames = [];
+        this.currentFrame = 0;
         this.data = {
             scale: 1,
             aspect: 'native',
             rotation: 0,
             overscan: [0,0,0,0],
-            displayId: window.location.href.split('/').pop()
+            displayId: window.location.href.split('/').pop(),
+            transition: 'fade',
+            duration: 5,
         };
         this.displayId = window.location.href.split('/').pop();
         this.addFrame();
@@ -31,6 +34,7 @@ var Shim = (function() {
             self.reflow();
         };
         this.reflow();
+        this.transition();
     };
     Shim.prototype.update = function(data) {
         if (data.url && data.url !== this.data.url) {
@@ -59,6 +63,18 @@ var Shim = (function() {
                 this.removeFrame();
             }
         }
+    }
+    Shim.prototype.transition = function() {
+        this.setCurrentFrame((this.currentFrame + 1) % this.frames.length);
+        window.setTimeout(() => {
+            this.transition();
+        }, this.data.duration * 1000);
+    }
+    Shim.prototype.setCurrentFrame = function(index) {
+        this.currentFrame = index;
+        this.frames.forEach((frame, i) => {
+            frame.classList.toggle('current', index === i)
+        });
     }
     Shim.prototype.setUrls = function(urls) {
         urls = [].concat(urls);
@@ -126,6 +142,7 @@ var Shim = (function() {
         style += 'margin-left:'+(-width/2)+'px;';
         style += 'margin-top:'+(-height/2)+'px;';
         frame.setAttribute('style',style);
+        frame.setAttribute('class', this.data.transition);
     }
     Shim.prototype.reflow = function() {
         this.frames.forEach(frame => this.reflowFrame(frame));

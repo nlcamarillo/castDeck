@@ -23,6 +23,9 @@ body {
     text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
     font-family: candara, "gill sans", sans-serif;
 }
+#backdrop.hidden {
+    display: none;
+}
 #loader {
     height: 4px;
     width: 100%;
@@ -89,5 +92,17 @@ h1 {
         background-color: #181818;
         background-color: rgba(0,0,0,0.7);
         box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+}
+
+/* transitions */
+/* fade */
+@media screen {
+    iframe.fade {
+        transition: opacity 0.5s;
+        opacity: 0;
+    }
+    iframe.fade.current {
+        opacity: 1;
     }
 }
