@@ -34,7 +34,7 @@ var Shim = (function() {
     };
     Shim.prototype.update = function(data) {
         if (data.url && data.url !== this.data.url) {
-            this.setFrameUrl(this.frames[0], data.url);
+            this.setUrls(data.url);
         }
         this.data = data;
         this.reflow();
@@ -43,6 +43,27 @@ var Shim = (function() {
         let frame = document.createElement('iframe');
         document.body.appendChild(frame);
         this.frames.push(frame);
+    }
+    Shim.prototype.removeFrame = function() {
+        let frame = this.frames.pop();
+        document.body.removeChild(frame);
+    }
+    Shim.prototype.ensureFrames = function(count) {
+        if (this.frames.length < count) {
+            for (i = this.frames.length; i < count; i++) {
+                this.addFrame();
+            }
+        }
+        if (this.frames.length > count) {
+            while (this.frames.length > count) {
+                this.removeFrame();
+            }
+        }
+    }
+    Shim.prototype.setUrls = function(urls) {
+        urls = [].concat(urls);
+        this.ensureFrames(urls.length);
+        urls.forEach((url, index) => this.setFrameUrl(this.frames[index], url));
     }
     Shim.prototype.setFrameUrl = function(frame, url) {
         frame.src = 'about:blank';
