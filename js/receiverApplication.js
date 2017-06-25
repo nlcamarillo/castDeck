@@ -82,7 +82,7 @@ var Shim = (function() {
         urls = [].concat(urls);
         this.ensureFrames(urls.length);
         urls.forEach((url, index) => {
-            if (url !== this.data.url[index]) {
+            if (url && url !== this.data.url[index]) {
                 this.setFrameUrl(this.frames[index], url)
             }
         });
