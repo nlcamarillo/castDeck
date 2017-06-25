@@ -66,11 +66,16 @@ var Shim = (function() {
             return this.getViewport().a;
         }
     };
-    Shim.prototype.reflow = function() {
+    Shim.prototype.reflowBody = function() {
         var os = this.data.overscan;
         //pixel size of the display
         var cw = document.body.clientWidth-os[1]-os[3];
         var ch = document.body.clientHeight-os[0]-os[2];
+        //body style to adjust for overscan
+        document.body.style.left = ((os[3]-os[1])/2)+'px';
+        document.body.style.top = ((os[0]-os[2])/2)+'px';
+    }
+    Shim.prototype.reflowFrame = function(frame) {
         var vp = this.getViewport();
         var scale = this.getScale();
         this.scaleX = vp.a*scale/this.getAspect();
@@ -95,10 +100,11 @@ var Shim = (function() {
         //center
         style += 'margin-left:'+(-width/2)+'px;';
         style += 'margin-top:'+(-height/2)+'px;';
-        this.frame.setAttribute('style',style);
-        //body style to adjust for overscan
-        document.body.style.left = ((os[3]-os[1])/2)+'px';
-        document.body.style.top = ((os[0]-os[2])/2)+'px';
+        frame.setAttribute('style',style);
+    }
+    Shim.prototype.reflow = function() {
+        this.reflowFrame(this.frame);
+        this.reflowBody();
     };
 
     return Shim;
