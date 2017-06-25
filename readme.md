@@ -1,7 +1,7 @@
 castDeck
 ========
 
-![](castDeck.jpeg)
+![](castDeck.jpg)
 
 Generic `iframe` based slide show chromecast application. Features:
 
