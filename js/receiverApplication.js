@@ -16,6 +16,7 @@ var Shim = (function() {
         this.initialize();
     }
     Shim.prototype.initialize = function() {
+        this.frames = [];
         this.data = {
             scale: 1,
             aspect: 'native',
@@ -24,8 +25,7 @@ var Shim = (function() {
             displayId: window.location.href.split('/').pop()
         };
         this.displayId = window.location.href.split('/').pop();
-        this.frame = document.createElement('iframe');
-        document.body.appendChild(this.frame);
+        this.addFrame();
         var self = this;
         window.onresize = function() {
             self.reflow();
@@ -34,13 +34,17 @@ var Shim = (function() {
     };
     Shim.prototype.update = function(data) {
         if (data.url && data.url !== this.data.url) {
-            this.seturl(data.url);
+            this.setFrameUrl(this.frames[0], data.url);
         }
         this.data = data;
         this.reflow();
     };
-    Shim.prototype.seturl = function(url) {
-        var frame = this.frame;
+    Shim.prototype.addFrame = function() {
+        let frame = document.createElement('iframe');
+        document.body.appendChild(frame);
+        this.frames.push(frame);
+    }
+    Shim.prototype.setFrameUrl = function(frame, url) {
         frame.src = 'about:blank';
         frame.onload = function(){
           frame.src = url;
@@ -103,7 +107,7 @@ var Shim = (function() {
         frame.setAttribute('style',style);
     }
     Shim.prototype.reflow = function() {
-        this.reflowFrame(this.frame);
+        this.frames.forEach(frame => this.reflowFrame(frame));
         this.reflowBody();
     };
 
