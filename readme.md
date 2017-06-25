@@ -1,6 +1,8 @@
 castDeck
 ========
 
+![](castDeck.jpeg)
+
 Generic `iframe` based slide show chromecast application. Features:
 
 - Scale factor adjustment
