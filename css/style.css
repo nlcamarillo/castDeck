@@ -37,6 +37,7 @@ a {
     .controls {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
     }
     fieldset {
         flex: 1;
