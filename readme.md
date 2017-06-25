@@ -7,6 +7,7 @@ Generic `iframe` based slide show chromecast application. Features:
 - Aspect ratio adjustment
 - Overscan adjustment
 - Rotation adjustment
+- Transitions between multiple urls
 
 Usage
 -----
@@ -40,9 +41,9 @@ set `castDeck.options.log = true;` after including `senderApplication.js` to ena
 
 ##methods
 
-### castDeck.cast(url?)
+### castDeck.cast(url? || url[]?)
 
-start casting with the given url
+start casting with the given url. Url can be a single string or an array
 
 ### castDeck.stop()
 
@@ -64,6 +65,14 @@ adjust overscan parameters. Some monitors (tvs specifically) cut away some of th
 
 pass in the string `native` or a numeric value to adjust the aspect ratio. Some monitors distort the HD aspect ratio (which is 16:9) to fit the ratio of the device. Pass in the actual aspect ratio of the device to fix this distortion.
 
+### castDeck.updateTransition(value)
+
+set the transition type, currently only 'fade' is supported
+
+### castDeck.updateDuration(value)
+
+set the display duration between transition, defaults to 10 seconds.
+
 Notes
 ---
 
@@ -75,5 +84,7 @@ Notes
             "rotation": <rotation in degrees>,
             "zoom": <zoom level>,
             "aspect": <"native"|ratio>,
-            "overscan": [<top>,<right>,<bottom>,<left>]
+            "overscan": [<top>,<right>,<bottom>,<left>],
+            "transition": "fade",
+            "duration": <seconds>
         }
