@@ -14,7 +14,9 @@
             rotation: 0,
             url: '',
             overscan: [0,0,0,0],
-            aspect: 'native'
+            aspect: 'native',
+            transition: 'fade',
+            duration: 5
         };
 
         const log = function() {
@@ -92,6 +94,9 @@
 
         this.updateAspect = update((value) => this.state.aspect = value);
 
+        this.updateTransition = update((value) => this.state.transition = value);
+        this.updateDuration = update((value) => this.state.duration = parseInt(value, 10));
+
         this.initCast = function() {
             log('initinig cast api');
             var sessionRequest = new chrome.cast.SessionRequest('4EC978AD');
@@ -111,7 +116,50 @@
         }
     }
 
+    var urlList = [''];
+    root.helpers = {
+        addUrl() {
+            urlList.push('');
+            this.renderUrls();
+        },
+        removeUrl(index) {
+            urlList.splice(index, 1);
+            this.renderUrls();
+        },
+        getUrls() {
+            let list = Array.from(document.getElementsByName('url')).map(input => input.value);
+            console.log(list);
+            return list;
+        },
+        renderUrls() {
+            let div = document.getElementById('urls');
+            div.innerHTML = urlList.map((url, index) => {
+                let last = index === urlList.length - 1
+                let rem = `
+                    <button type="button" onclick="helpers.removeUrl(${index})">Remove</button>
+                `;
+                let add = `
+                    <button type="button" onclick="castDeck.updateUrl(helpers.getUrls())">Update</button>
+                    <button type="button" onclick="helpers.addUrl()">
+                        <i class="mdi mdi-plus"></i>
+                        Add url
+                    </button>
+                `;
+                return `
+                    <p>
+                        <label for="url${index}">url ${index + 1}</label>
+                        <input id="url${index}" name="url" type="text" value="${url}">
+                        ${last? add: rem}
+                    </p>
+                `
+            }).join('');
+        }
+    }
+
     root.castDeck = new CastDeck();
+    document.addEventListener("DOMContentLoaded", () => {
+        root.helpers.renderUrls();
+    });
 
     window['__onGCastApiAvailable'] = function(loaded, errorInfo) {
         if (loaded) {

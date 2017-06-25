@@ -24,10 +24,17 @@
         <div class="controls">
             <fieldset>
                 <legend>&nbsp;</legend>
+                <div id="urls">
+                    <!-- filled by script -->
+                </div>
                 <p>
-                    <label for="url">url</label>
-                    <input id="url" type="text">
-                    <button type="button" onclick="castDeck.updateUrl(this.previousElementSibling.value)">Update</button>
+                    <label>Transition</label>
+                    <select onchange="castDeck.updateTransition(this.value)">
+                        <option value="fade">Fade</option>
+                    </select>
+                    <input type="text" id="duration" style="width: 30px" value="5">
+                    Sec.
+                    <button type="button" onclick="castDeck.updateDuration(this.previousElementSibling.value)">Update</button>
                 </p>
                 <p>
                     <label>Zoom:</label>
@@ -75,7 +82,7 @@
             </fieldset>
         </div>
         <p>
-            <button type="button" onclick="castDeck.cast(document.getElementById('url').value)">
+            <button type="button" onclick="castDeck.cast(helpers.getUrls())">
                 <i class="mdi mdi-cast"></i>
                 Cast
             </button>

@@ -116,6 +116,23 @@ a {
         border-color: steelblue;
         outline: none;
     }
+    select {
+        min-width: 50px;
+        background-color: #222;
+        border: 1px solid #1A1A1A;
+        border-radius: 4px;
+        color: #eee;
+        font-family: verdana, sans-serif;
+        font-size: 16px;
+        padding: 8px;
+        box-shadow: 0px 1px 0px #333, inset 0px 1px 0px #333;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    select:focus {
+        border-color: steelblue;
+        outline: none;
+    }
 }
 
 /* overscan widget */
