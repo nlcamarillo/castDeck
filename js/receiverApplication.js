@@ -41,7 +41,7 @@ var Shim = (function() {
         //make url always an array
         data.url = [].concat(data.url);
         this.setUrls(data.url);
-        this.data = data;
+        this.data = Object.assign(this.data, data);
         this.reflow();
     };
     Shim.prototype.addFrame = function() {
