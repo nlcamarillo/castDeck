@@ -39,7 +39,9 @@ var Shim = (function() {
     };
     Shim.prototype.update = function(data) {
         //make url always an array
-        data.url = [].concat(data.url);
+        if (data.url) {
+            data.url = [].concat(data.url);
+        }
         this.setUrls(data.url);
         this.data = Object.assign(this.data, data);
         this.reflow();
