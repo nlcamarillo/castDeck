@@ -178,7 +178,7 @@ function setupChromcast() {
         // send something back
         customMessageBus.send(event.senderId,{
             requestId: event.data.requestId,
-            data: 'ack'
+            data: shim.data
         });
     };
     castReceiverManager.start();
