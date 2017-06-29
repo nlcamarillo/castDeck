@@ -41,8 +41,8 @@ var Shim = (function() {
         //make url always an array
         if (data.url) {
             data.url = [].concat(data.url);
+            this.setUrls(data.url);
         }
-        this.setUrls(data.url);
         this.data = Object.assign(this.data, data);
         this.reflow();
     };
