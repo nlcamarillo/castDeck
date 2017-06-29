@@ -69,8 +69,8 @@ var Shim = (function() {
         }
     }
     Shim.prototype.transition = function() {
-        this.setCurrentFrame((this.currentFrame + 1) % this.frames.length);
         window.setTimeout(() => {
+            this.setCurrentFrame((this.currentFrame + 1) % this.frames.length);
             this.transition();
         }, this.data.duration * 1000);
     }
@@ -161,6 +161,7 @@ var Shim = (function() {
     Shim.prototype.reflow = function() {
         this.frames.forEach(frame => this.reflowFrame(frame));
         this.reflowBody();
+        this.setCurrentFrame(this.currentFrame);
     };
 
     return Shim;
