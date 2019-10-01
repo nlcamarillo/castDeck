@@ -47,10 +47,15 @@ var Shim = (function() {
         this.reflow();
     };
     Shim.prototype.addFrame = function() {
+        let div = document.createElement("div");
+        div.className = "framecontainer";
         let frame = document.createElement("iframe");
-        document.body.appendChild(frame);
-        this.frames.push(frame);
-        this.reflowFrame(frame);
+        let span = document.createElement("span");
+        div.appendChild(span);
+        div.appendChild(frame);
+        document.body.appendChild(div);
+        this.frames.push(div);
+        this.reflowFrame(div);
     };
     Shim.prototype.removeFrame = function() {
         let frame = this.frames.pop();
@@ -91,10 +96,14 @@ var Shim = (function() {
     };
     Shim.prototype.setFrameUrl = function(frame, url) {
         this.setLoading(true);
-        frame.src = "about:blank";
-        frame.onload = () => {
-            frame.src = url;
-            frame.onload = () => {
+        let fallback = frame.firstChild;
+        let iframe = frame.lastChild;
+        fallback.innerHTML = "";
+        iframe.src = "about:blank";
+        iframe.onload = () => {
+            iframe.src = url;
+            iframe.onload = () => {
+                fallback.innerHTML = `${url} did not load, it might be cross origin protected`;
                 this.setLoading(false);
             };
         };
@@ -165,6 +174,7 @@ var Shim = (function() {
         style += "margin-top:" + -height / 2 + "px;";
         frame.setAttribute("style", style);
         frame.setAttribute("class", this.data.transition);
+        frame.classList.add("framecontainer");
     };
     Shim.prototype.reflow = function() {
         this.frames.forEach(frame => this.reflowFrame(frame));
