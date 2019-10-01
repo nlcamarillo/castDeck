@@ -177,22 +177,31 @@ var Shim = (function() {
 
 var shim = new Shim();
 
-function setupChromcast() {
-    var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-    var customMessageBus = castReceiverManager.getCastMessageBus(
+function setupChromcastV3() {
+    const context = cast.framework.CastReceiverContext.getInstance();
+
+    context.addCustomMessageListener(
         "urn:x-cast:org.firstlegoleague.castDeck",
-        cast.receiver.CastMessageBus.MessageType.JSON
+        event => {
+            var str = JSON.stringify(event);
+            shim.update(event.data);
+
+            // send something back
+            context.sendCustomMessage(
+                "urn:x-cast:org.firstlegoleague.castDeck",
+                event.senderId,
+                {
+                    requestId: event.data.requestId,
+                    data: shim.data,
+                    event,
+                    str
+                }
+            );
+        }
     );
-    customMessageBus.onMessage = function(event) {
-        var str = JSON.stringify(event.data);
-        shim.update(event.data);
-        // send something back
-        customMessageBus.send(event.senderId, {
-            requestId: event.data.requestId,
-            data: shim.data
-        });
-    };
-    castReceiverManager.start();
+
+    const options = new cast.framework.CastReceiverOptions();
+    context.start(options);
 }
 
-setupChromcast();
+setupChromcastV3();

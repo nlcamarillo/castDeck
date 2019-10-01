@@ -49,13 +49,19 @@
 
                     session.addMessageListener(
                         "urn:x-cast:org.firstlegoleague.castDeck",
-                        function() {
-                            log("received message", arguments);
+                        function(namespace, data) {
+                            log("received message", data);
                             cb && cb.apply(cb, arguments);
                         }
                     );
-
-                    resolve(this.updateUrl(url));
+                    if (url && url[0]) {
+                        resolve(this.updateUrl(url));
+                    } else {
+                        //sending empty message
+                        this.sendMessage({}).then(() => {
+                            resolve();
+                        });
+                    }
                 }, reject);
             });
         };
