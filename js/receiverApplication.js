@@ -201,6 +201,7 @@ function setupChromcastV3() {
     );
 
     const options = new cast.framework.CastReceiverOptions();
+    options.disableIdleTimeout = true; //no timeout
     context.start(options);
 }
 
