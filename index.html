@@ -1,93 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="//cdn.materialdesignicons.com/1.2.65/css/materialdesignicons.min.css">
-    <title>castDeck</title>
-</head>
-<body>
-    <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
-    <script src="js/senderApplication.js"></script>
-    <script>
-        castDeck.options.log = true;
-        const onZoom = (state) => document.getElementById('zoomLevel').innerHTML = state.zoom.toFixed(1);
-    </script>
-    <h1>castDeck</h1>
-    <form action="">
-        <p>
-            This is castDeck. Your Chromecast management frontend.
-        </p>
-        <p>
-            You can enter any url in the box below and press "Cast". For narrowcasting purposes, you can adjust various aspects of the displayed image, like zoom, rotation and overscan.
-        </p>
-        <div class="controls">
-            <fieldset>
-                <legend>&nbsp;</legend>
-                <div id="urls">
-                    <!-- filled by script -->
-                </div>
-                <p>
-                    <label>Transition</label>
-                    <select onchange="castDeck.updateTransition(this.value)">
-                        <option value="fade">Fade</option>
-                    </select>
-                    <input type="text" id="duration" style="width: 30px" value="10">
-                    Sec.
-                    <button type="button" onclick="castDeck.updateDuration(this.previousElementSibling.value)">Update</button>
-                </p>
-                <p>
-                    <label>Zoom:</label>
-                    <button type="button" onclick="castDeck.zoomIn().then(onZoom)">
-                        <i class="mdi mdi-magnify-plus"></i>
-                        Zoom in
-                    </button>
-                    <button type="button" onclick="castDeck.zoomOut().then(onZoom)">
-                        <i class="mdi mdi-magnify-minus"></i>
-                        Zoom out
-                    </button>
-                    <button type="button" onclick="castDeck.zoomReset().then(onZoom)">
-                        <i class="mdi mdi-magnify"></i>
-                        Zoom reset
-                    </button>
-                    <span id="zoomLevel">1.0</span>
-                </p>
-                <p>
-                    <label>Rotate:</label>
-                    <button type="button" onclick="castDeck.rotateCCW()">
-                        <i class="mdi mdi-undo"></i>
-                        Left
-                    </button>
-                    <button type="button" onclick="castDeck.rotateCW()">
-                        <i class="mdi mdi-redo"></i>
-                        Right
-                    </button>
-                </p>
-                <p>
-                    <label>Aspect:</label>
-                    <button type="button" onclick="castDeck.updateAspect('native')">Native</button>
-                    <button type="button" onclick="castDeck.updateAspect(16/9)">16:9</button>
-                    <button type="button" onclick="castDeck.updateAspect(16/10)">16:10</button>
-                    <button type="button" onclick="castDeck.updateAspect(4/3)">4:3</button>
-                </p>
-            </fieldset>
-            <fieldset>
-                <legend>Overscan:</legend>
-                <p class="overscan">
-                    <input id="top" type="number" value="0" onchange="castDeck.adjustTop(this.value)">
-                    <input id="right" type="number" value="0" onchange="castDeck.adjustRight(this.value)">
-                    <input id="bottom" type="number" value="0" onchange="castDeck.adjustBottom(this.value)">
-                    <input id="left" type="number" value="0" onchange="castDeck.adjustLeft(this.value)">
-                </p>
-            </fieldset>
-        </div>
-        <p>
-            <button type="button" onclick="castDeck.cast(helpers.getUrls())">
-                <i class="mdi mdi-cast"></i>
-                Cast
-            </button>
-            <button type="button" onclick="castDeck.stop()">Stop</button>
-        </p>
-    </form>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link
+            rel="stylesheet"
+            href="//cdn.materialdesignicons.com/1.2.65/css/materialdesignicons.min.css"
+        />
+        <title>castDeck</title>
+    </head>
+    <body>
+        <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+        <script src="js/senderApplication.js"></script>
+        <script>
+            castDeck.options.log = true;
+            const onZoom = state =>
+                (document.getElementById(
+                    "zoomLevel"
+                ).innerHTML = state.zoom.toFixed(1));
+        </script>
+        <h1>castDeck</h1>
+        <form action="">
+            <p>
+                This is castDeck. Your Chromecast management frontend.
+            </p>
+            <p>
+                You can enter any url in the box below and press "Cast". For
+                narrowcasting purposes, you can adjust various aspects of the
+                displayed image, like zoom, rotation and overscan.
+            </p>
+            <div class="controls">
+                <fieldset>
+                    <legend>&nbsp;</legend>
+                    <div id="urls">
+                        <!-- filled by script -->
+                    </div>
+                    <p>
+                        <label>Transition</label>
+                        <select
+                            onchange="castDeck.updateTransition(this.value)"
+                        >
+                            <option value="fade">Fade</option>
+                        </select>
+                        <input
+                            type="text"
+                            id="duration"
+                            style="width: 30px"
+                            value="10"
+                        />
+                        Sec.
+                        <button
+                            type="button"
+                            onclick="castDeck.updateDuration(this.previousElementSibling.value)"
+                        >
+                            Update
+                        </button>
+                    </p>
+                    <p>
+                        <label>Zoom:</label>
+                        <button
+                            type="button"
+                            onclick="castDeck.zoomIn().then(onZoom)"
+                        >
+                            <i class="mdi mdi-magnify-plus"></i>
+                            Zoom in
+                        </button>
+                        <button
+                            type="button"
+                            onclick="castDeck.zoomOut().then(onZoom)"
+                        >
+                            <i class="mdi mdi-magnify-minus"></i>
+                            Zoom out
+                        </button>
+                        <button
+                            type="button"
+                            onclick="castDeck.zoomReset().then(onZoom)"
+                        >
+                            <i class="mdi mdi-magnify"></i>
+                            Zoom reset
+                        </button>
+                        <span id="zoomLevel">1.0</span>
+                    </p>
+                    <p>
+                        <label>Rotate:</label>
+                        <button type="button" onclick="castDeck.rotateCCW()">
+                            <i class="mdi mdi-undo"></i>
+                            Left
+                        </button>
+                        <button type="button" onclick="castDeck.rotateCW()">
+                            <i class="mdi mdi-redo"></i>
+                            Right
+                        </button>
+                    </p>
+                    <p>
+                        <label>Aspect:</label>
+                        <button
+                            type="button"
+                            onclick="castDeck.updateAspect('native')"
+                        >
+                            Native
+                        </button>
+                        <button
+                            type="button"
+                            onclick="castDeck.updateAspect(16/9)"
+                        >
+                            16:9
+                        </button>
+                        <button
+                            type="button"
+                            onclick="castDeck.updateAspect(16/10)"
+                        >
+                            16:10
+                        </button>
+                        <button
+                            type="button"
+                            onclick="castDeck.updateAspect(4/3)"
+                        >
+                            4:3
+                        </button>
+                    </p>
+                </fieldset>
+                <fieldset>
+                    <legend>Overscan:</legend>
+                    <p class="overscan">
+                        <input
+                            id="top"
+                            type="number"
+                            value="0"
+                            onchange="castDeck.adjustTop(this.value)"
+                        />
+                        <input
+                            id="right"
+                            type="number"
+                            value="0"
+                            onchange="castDeck.adjustRight(this.value)"
+                        />
+                        <input
+                            id="bottom"
+                            type="number"
+                            value="0"
+                            onchange="castDeck.adjustBottom(this.value)"
+                        />
+                        <input
+                            id="left"
+                            type="number"
+                            value="0"
+                            onchange="castDeck.adjustLeft(this.value)"
+                        />
+                    </p>
+                </fieldset>
+            </div>
+            <p>
+                <button
+                    type="button"
+                    onclick="castDeck.cast(helpers.getUrls())"
+                >
+                    <i class="mdi mdi-cast"></i>
+                    Cast
+                </button>
+                <button type="button" onclick="castDeck.stop()">Stop</button>
+            </p>
+        </form>
+    </body>
 </html>

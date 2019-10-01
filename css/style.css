@@ -1,4 +1,5 @@
-html,body {
+html,
+body {
     background-color: #222;
     font-family: verdana, sans-serif;
     font-size: 16px;
@@ -15,12 +16,24 @@ html,body {
 
 /* block level elements */
 @media screen {
-    h1,h2,h3,h4,h5,h6,p,ul,ol,dl,table,fieldset {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    ul,
+    ol,
+    dl,
+    table,
+    fieldset {
         margin: 10px;
     }
 }
 
-h1, h2 {
+h1,
+h2 {
     font-weight: normal;
     text-shadow: 0px 2px 2px black;
 }
@@ -31,7 +44,6 @@ a {
     color: #eee;
 }
 
-
 /* form elements */
 @media screen {
     .controls {
@@ -41,7 +53,7 @@ a {
     }
     fieldset {
         flex: 1;
-        border: 1px solid #1A1A1A;
+        border: 1px solid #1a1a1a;
         border-radius: 4px;
         box-shadow: 0px 1px 0px #333, inset 0px 1px 0px #333;
     }
@@ -55,7 +67,7 @@ a {
     button {
         min-width: 50px;
         background-color: #222;
-        border: 1px solid #1A1A1A;
+        border: 1px solid #1a1a1a;
         border-radius: 4px;
         color: #eee;
         font-family: verdana, sans-serif;
@@ -71,7 +83,7 @@ a {
     }
     a.button:active,
     button:active {
-        background-color: #1A1A1A;
+        background-color: #1a1a1a;
         box-shadow: 0px 1px 0px #333;
     }
     a.button:focus,
@@ -91,11 +103,11 @@ a {
     }
     .softbutton:hover {
         box-shadow: 0px 1px 0px #333, inset 0px 1px 0px #333;
-        border: 1px solid #1A1A1A;
+        border: 1px solid #1a1a1a;
         background-color: #282828;
     }
     .softbutton:active {
-        background-color: #1A1A1A;
+        background-color: #1a1a1a;
         box-shadow: 0px 1px 0px #333;
     }
     label {
@@ -103,11 +115,11 @@ a {
         display: inline-block;
     }
     input {
-        background-color: rgba(255,255,255,0.1);
+        background-color: rgba(255, 255, 255, 0.1);
         background-color: #393939;
-        border: 1px solid #1A1A1A;
+        border: 1px solid #1a1a1a;
         border-radius: 4px;
-        box-shadow: 0px 1px 0px #333, inset 2px 2px 2px rgba(0,0,0,0.3);
+        box-shadow: 0px 1px 0px #333, inset 2px 2px 2px rgba(0, 0, 0, 0.3);
         color: #eee;
         font-family: verdana, sans-serif;
         font-size: 16px;
@@ -120,7 +132,7 @@ a {
     select {
         min-width: 50px;
         background-color: #222;
-        border: 1px solid #1A1A1A;
+        border: 1px solid #1a1a1a;
         border-radius: 4px;
         color: #eee;
         font-family: verdana, sans-serif;
@@ -143,7 +155,7 @@ a {
         width: 150px;
         height: 80px;
         position: relative;
-        border: 1px solid #1A1A1A;
+        border: 1px solid #1a1a1a;
         border-radius: 4px;
         box-shadow: 0px 1px 0px #333, inset 0px 1px 0px #333;
     }
@@ -179,7 +191,8 @@ a {
 
 /* global classes */
 @media screen {
-    [class^="icon-"], [class*=" icon-"] {
+    [class^="icon-"],
+    [class*=" icon-"] {
         font-size: 14px;
     }
     .hidden {
@@ -202,14 +215,19 @@ a {
     .pull-right {
         float: right;
     }
-    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-       display: none;
+    [ng\:cloak],
+    [ng-cloak],
+    [data-ng-cloak],
+    [x-ng-cloak],
+    .ng-cloak,
+    .x-ng-cloak {
+        display: none;
     }
 
     .dropout {
         border: 1px solid #333;
         border-radius: 4px;
-        box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
         background-color: #222;
         position: absolute;
     }
@@ -223,6 +241,6 @@ a {
     }
 }
 
-input[type=number] {
+input[type="number"] {
     width: 50px;
 }

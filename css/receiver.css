@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     position: relative;
     margin: 0;
     padding: 0;
@@ -19,8 +20,8 @@ body {
     text-align: center;
     font-size: 16vw;
     line-height: 75vh;
-    color: rgba(0,0,0,0.6);
-    text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+    color: rgba(0, 0, 0, 0.6);
+    text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.1);
     font-family: candara, "gill sans", sans-serif;
 }
 #backdrop.hidden {
@@ -33,7 +34,7 @@ body {
     overflow: hidden;
     top: 60vh;
 }
-#loader:before{
+#loader:before {
     display: block;
     position: absolute;
     content: "";
@@ -45,12 +46,25 @@ body {
 }
 
 @keyframes loading {
-    from {left: -200px; width: 30%;}
-    50% {width: 30%;}
-    70% {width: 70%;}
-    80% { left: 50%;}
-    95% {left: 120%;}
-    to {left: 100%;}
+    from {
+        left: -200px;
+        width: 30%;
+    }
+    50% {
+        width: 30%;
+    }
+    70% {
+        width: 70%;
+    }
+    80% {
+        left: 50%;
+    }
+    95% {
+        left: 120%;
+    }
+    to {
+        left: 100%;
+    }
 }
 iframe {
     position: absolute;
@@ -64,7 +78,6 @@ h1 {
     font-size: 520%;
     text-align: center;
 }
-
 
 /* flash message box */
 @media screen {
@@ -90,8 +103,8 @@ h1 {
         padding: 0.2em 1em;
         border-radius: 20px;
         background-color: #181818;
-        background-color: rgba(0,0,0,0.7);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+        background-color: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
     }
 }
 
