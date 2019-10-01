@@ -165,7 +165,7 @@
             }
             if (previews.length > count) {
                 for (let i = 0; i < previews.length - count; i++) {
-                    previews.removeChild(previews.lastChild);
+                    div.removeChild(div.lastChild);
                 }
             }
         },
