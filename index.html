@@ -153,13 +153,14 @@
             <p>
                 <button
                     type="button"
-                    onclick="castDeck.cast(helpers.getUrls())"
+                    onclick="castDeck.cast(helpers.getUrls(), helpers.renderPreviews)"
                 >
                     <i class="mdi mdi-cast"></i>
                     Cast
                 </button>
                 <button type="button" onclick="castDeck.stop()">Stop</button>
             </p>
+            <div id="previews"></div>
         </form>
     </body>
 </html>

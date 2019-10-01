@@ -204,7 +204,7 @@ function setupChromcastV3() {
                     requestId: event.data.requestId,
                     data: shim.data,
                     event,
-                    str
+                    vp: shim.getViewport()
                 }
             );
         }

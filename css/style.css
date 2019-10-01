@@ -9,6 +9,19 @@ body {
     margin: 0;
     padding: 0;
 }
+.preview {
+    margin: 10px;
+    padding: 8px;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0px 1px 0px #333, inset 0px 1px 0px #333;
+    overflow: hidden;
+    background-color: black;
+    display: inline-block;
+}
+iframe {
+    border: none;
+}
 .display {
     text-align: center;
     overflow: hidden;

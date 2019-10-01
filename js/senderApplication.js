@@ -12,7 +12,7 @@
         this.state = {
             zoom: 1,
             rotation: 0,
-            url: "",
+            url: [""],
             overscan: [0, 0, 0, 0],
             aspect: "native",
             transition: "fade",
@@ -31,11 +31,6 @@
                     "google cast api not found, please include www.gstatic.com/cv/js/sender/v1/cast_sender.js"
                 );
             }
-        };
-
-        const update = fn => value => {
-            fn(value);
-            return this.sendMessage(this.state);
         };
 
         this.cast = function(url, cb) {
@@ -81,6 +76,11 @@
                     reject
                 );
             });
+        };
+
+        const update = fn => value => {
+            fn(value);
+            return this.sendMessage(this.state);
         };
 
         this.setZoom = update(value => (this.state.zoom = value));
@@ -149,8 +149,69 @@
             let list = Array.from(document.getElementsByName("url")).map(
                 input => input.value
             );
-            console.log(list);
             return list;
+        },
+        ensurePreviews(count) {
+            let div = document.getElementById("previews");
+            let previews = div.getElementsByClassName("preview");
+            if (previews.length < count) {
+                for (let i = previews.length; i < count; i++) {
+                    let d = document.createElement("div");
+                    d.className = "preview";
+                    let i = document.createElement("iframe");
+                    d.appendChild(i);
+                    div.appendChild(d);
+                }
+            }
+            if (previews.length > count) {
+                for (let i = 0; i < previews.length - count; i++) {
+                    previews.removeChild(previews.lastChild);
+                }
+            }
+        },
+        renderPreviews(namespace, msg) {
+            let { data, vp } = JSON.parse(msg);
+            console.log(data, vp);
+            let urlList = data.url;
+            let div = document.getElementById("previews");
+            let frames = div.getElementsByClassName("preview");
+            if (frames.length !== urlList.length) {
+                helpers.ensurePreviews(urlList.length);
+                frames = div.getElementsByClassName("preview");
+            }
+            urlList.forEach((url, index) => {
+                let aspect =
+                    typeof data.aspect === "number" ? data.aspect : vp.a;
+                let scale = data.zoom || 1;
+                let sx = (vp.a * scale) / aspect;
+                let sy = scale;
+                //pixel size of the viewport (scaled)
+                let bw = vp.w / sx;
+                let bh = vp.h / sy;
+                //size of the rotated viewport
+                var portrait = data.rotation % 180 === 90;
+                var width = portrait ? bh : bw;
+                var height = portrait ? bw : bh;
+                //local target width and height to get 200px height
+                let lh = 200;
+                let lw = lh * aspect;
+                if (portrait) [lw, lh] = [lh, lw];
+                let scaleX = `scaleX(${lw / width})`;
+                let scaleY = `scaleY(${lh / height})`;
+                let style = "";
+                style += `transform: ${scaleX} ${scaleY};`;
+                style += `transform-origin: top left;`;
+                style += `width:${width}px;`;
+                style += `height:${height}px;`;
+                let cstyle = `width:${lw}px; height: ${lh}px`;
+                let div = frames[index];
+                let iframe = div.firstChild;
+                div.setAttribute("style", cstyle);
+                iframe.setAttribute("style", style);
+                if (iframe.src !== url) {
+                    iframe.src = url;
+                }
+            });
         },
         renderUrls() {
             let div = document.getElementById("urls");
