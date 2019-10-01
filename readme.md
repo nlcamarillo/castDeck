@@ -14,7 +14,7 @@ Generic `iframe` based slide show chromecast application. Features:
 Usage
 -----
 
-- Go to the [control url](https://firstlegoleague.github.io/castDeck)
+- Go to the [control url](https://nlcamarillo.github.io/castDeck)
 - Adjust settings
 - Press `cast`
 
