@@ -1,5 +1,6 @@
 (function(root) {
     var session;
+    var API_ID = "4EC978AD"; //prod
 
     function spread() {
         return Object.assign.apply([{}].concat(arguments));
@@ -109,7 +110,7 @@
 
         this.initCast = function() {
             log("initinig cast api");
-            var sessionRequest = new chrome.cast.SessionRequest("4EC978AD");
+            var sessionRequest = new chrome.cast.SessionRequest(API_ID);
             var apiConfig = new chrome.cast.ApiConfig(
                 sessionRequest,
                 _session => {
